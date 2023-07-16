@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.nerdypunk.coffemasters
 
 import android.os.Bundle
@@ -19,11 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import com.nerdypunk.coffemasters.ui.theme.CoffeMastersTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var dataManager = ViewModelProvider(this)
+            .get(DataManager:: class.java)
         setContent {
             CoffeMastersTheme {
                 // A surface container using the 'background' color from the theme
@@ -34,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         .padding(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   FirstComposable()
+                    App(dataManager = dataManager)
                 }
             }
         }
